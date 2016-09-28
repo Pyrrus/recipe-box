@@ -1,0 +1,19 @@
+<h1>Edit Categories</h1>
+
+#foreach ($category in $categories)
+   <form action="/category/$category.getId()/edit" method="post">
+     <div class='form-group'>
+       <div class="input-group">
+         <span class="input-group-btn">
+           <button type="submit" class="btn btn-info">Edit</button>
+         </span>
+         <input id="tag" name="tag" type="text" class="form-control" value="$category.getTag()">
+       </div>
+     </div>
+  </form>
+  <form action="/category/$category.getId()/remove" method="post">
+     <button type="submit" class="btn btn-danger">Remove</button>
+  </form>
+  <br />
+  <br />
+#end

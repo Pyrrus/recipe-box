@@ -1,0 +1,39 @@
+<h1>Edit $recipes.getName()</h1>
+
+<form action="/recipe/$recipes.getId()/edit" method="post">
+  <div class='form-group'>
+    <label for='name'>Name for Dish</label>
+  	<input name='name' id='name' type='text' class='form-control' value="$recipes.getName()" required />
+  </div>
+
+
+  <div class='form-group'>
+    <label for='name'>Ingredients:</label>
+  	<textarea name="ingredients" class='form-control'>$recipes.getIngredients()</textarea>
+  </div>
+
+  <div class='form-group'>
+    <label for='name'>Instructions:</label>
+  	<textarea name="instructions" class='form-control'>$recipes.getInstructions()</textarea>
+  </div>
+
+
+  <div class='form-group'>
+    <select class="form-control" multiple name="tags" required>
+      #foreach($category in $categories)
+        #set($add = "")
+        #foreach($recipeCategory in $recipes.getCategories())
+            #if ($category.getId() == $recipeCategory.getId())
+              #set($add = "selected")
+            #end
+        #end
+        <option value="$category.getId()" $add>$category.getTag()</option>
+      #end
+    </select>
+  </div>
+  <button type="submit" class="btn btn-info">Add Recipe</button>
+</form>
+
+<form action="/recipe/$recipes.getId()/remove" method="post">
+  <button type="submit" class="btn btn-danger">Remove</button>
+</form>

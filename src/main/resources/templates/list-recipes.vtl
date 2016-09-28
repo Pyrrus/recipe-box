@@ -1,0 +1,5 @@
+<h1>list of recipes to edit</h1>
+
+#foreach ($recipe in $recipes)
+    <a href="/recipe/$recipe.getId()/edit">$recipe.getName()</a><br /><br />
+#end

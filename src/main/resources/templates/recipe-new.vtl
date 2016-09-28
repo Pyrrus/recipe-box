@@ -1,11 +1,41 @@
 <h1>Add new Recipe</h1>
 
+<form class="" action="/addCategories" method="post">
+  <div class='form-group'>
+    <label for="term">Add new category:</label>
+    <div class="input-group">
+      <input id="tag" name="tag" type="text" class="form-control">
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-danger">Add Category</button>
+      </span>
+    </div>
+  </div>
+</form>
+
 <form action="/recipe/new" method="post">
+  <div class='form-group'>
+    <label for='name'>Name for Dish</label>
+  	<input name='name' id='name' type='text' class='form-control' required />
+  </div>
 
-  Name of the dish: <input name="name" type="text" />
 
-  ingredients: <textarea name="ingredients"></textarea>
+  <div class='form-group'>
+    <label for='name'>Ingredients:</label>
+  	<textarea name="ingredients" class='form-control'></textarea>
+  </div>
 
-  instructions: <textarea name="instructions"></textarea>
+  <div class='form-group'>
+    <label for='name'>Instructions:</label>
+  	<textarea name="instructions" class='form-control'></textarea>
+  </div>
 
+
+  <div class='form-group'>
+    <select class="form-control" multiple name="tags" required>
+      #foreach($category in $categories)
+          <option value="$category.getId()">$category.getTag()</option>
+      #end
+    </select>
+  </div>
+  <button type="submit" class="btn btn-danger">Add Recipe</button>
 </form>

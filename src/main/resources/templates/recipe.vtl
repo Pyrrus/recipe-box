@@ -1,0 +1,22 @@
+<h1>$recipes.getName()</h1>
+
+#set($output = "")
+
+#foreach($category in $recipes.getCategories())
+  #set($output = $output + " " + $category.getTag())
+#end
+
+<h6>Category: $output</h6>
+
+<h3>Ingredients:</h3>
+<div>
+  $recipes.getIngredients()
+</div>
+
+<h3>Instructions</h3>
+<div>
+  $recipes.getInstructions()
+</div>
+<a href="/recipe/new">add Recipes</a>
+<br>
+<a href="/">Home</a>

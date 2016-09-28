@@ -39,17 +39,6 @@ public class Recipes {
     return id;
   }
 
-
-  public void delete(){
-    String sql = "DELETE from recipes WHERE id = :id";
-    try(Connection con = DB.sql2o.open()) {
-      con.createQuery(sql, true)
-        .addParameter("id", this.getId())
-        .executeUpdate()
-        .getKey();
-    }
-  }
-
  public static Recipes find(int id) {
      try(Connection con = DB.sql2o.open()) {
        String sql = "SELECT * FROM recipes where id=:id";
@@ -107,5 +96,34 @@ public class Recipes {
     }
   }
 
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM recipes WHERE id=:id;";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
 
+      sql = "DELETE FROM recipes_tags WHERE recipes_id = :recipes_id";
+      con.createQuery(sql)
+      .addParameter("recipes_id", this.id)
+      .executeUpdate();
+    }
+  }
+
+  public void update(String name, String ingredients, String instructions) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE recipes SET name = :name, ingredients =:ingredients, instructions = :instructions WHERE id=:id";
+      con.createQuery(sql)
+      .addParameter("name", name)
+      .addParameter("ingredients", ingredients)
+      .addParameter("instructions", instructions)
+      .addParameter("id", this.id)
+      .executeUpdate();
+
+      sql = "DELETE FROM recipes_tags WHERE recipes_id = :recipes_id";
+      con.createQuery(sql)
+      .addParameter("recipes_id", this.id)
+      .executeUpdate();
+    }
+  }
 }

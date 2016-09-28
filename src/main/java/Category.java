@@ -25,16 +25,6 @@ public class Category {
     return id;
   }
 
-  public void delete(){
-    String sql = "DELETE from categories WHERE id = :id";
-    try(Connection con = DB.sql2o.open()) {
-      con.createQuery(sql, true)
-      .addParameter("id", this.getId())
-      .executeUpdate()
-      .getKey();
-    }
-  }
-
   public static Category find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM categories where id=:id";
@@ -79,19 +69,43 @@ public class Category {
     try(Connection con = DB.sql2o.open()){
       String joinQuery = "SELECT recipes_id FROM recipes_tags WHERE categories_id = :categories_id";
       List<Integer> recipeIds = con.createQuery(joinQuery)
-        .addParameter("categories_id", this.getId())
-        .executeAndFetch(Integer.class);
+      .addParameter("categories_id", this.getId())
+      .executeAndFetch(Integer.class);
 
       List<Recipes> recipes = new ArrayList<Recipes>();
 
       for (Integer recipeId : recipeIds) {
         String recipesQuery = "SELECT * FROM recipes WHERE id = :recipeId";
         Recipes recipe = con.createQuery(recipesQuery)
-          .addParameter("recipeId", recipeId)
-          .executeAndFetchFirst(Recipes.class);
+        .addParameter("recipeId", recipeId)
+        .executeAndFetchFirst(Recipes.class);
         recipes.add(recipe);
       }
       return recipes;
+    }
+  }
+
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM categories WHERE id=:id;";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+
+      sql = "DELETE FROM recipes_tags WHERE categories_id = :categories_id";
+      con.createQuery(sql)
+      .addParameter("categories_id", this.id)
+      .executeUpdate();
+    }
+  }
+
+  public void update(String tag) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE categories SET tag = :tag WHERE id=:id";
+      con.createQuery(sql)
+      .addParameter("tag", tag)
+      .addParameter("id", this.id)
+      .executeUpdate();
     }
   }
 }
