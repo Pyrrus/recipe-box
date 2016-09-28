@@ -68,8 +68,11 @@ public class Category {
   public List<Recipes> getRecipe() {
     try(Connection con = DB.sql2o.open()){
       String joinQuery = "SELECT recipes_id FROM recipes_tags WHERE categories_id = :categories_id";
+
+      // String joinQuery = "SELECT recipes.* FROM categories JOIN recipes_tags ON (categories.id = recipes_tags.categories_id) JOIN recipes ON (recipes_tags.recipes_id = recipes.id) WHERE categories.id = :id";
+
       List<Integer> recipeIds = con.createQuery(joinQuery)
-      .addParameter("categories_id", this.getId())
+      .addParameter("id", this.getId())
       .executeAndFetch(Integer.class);
 
       List<Recipes> recipes = new ArrayList<Recipes>();
