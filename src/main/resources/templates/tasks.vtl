@@ -1,0 +1,22 @@
+<h1>Task list!</h1>
+
+#if ($tasks)
+  <h3>Incomplete Tasks:</h3>
+  <ul>
+    #foreach ($task in $tasks)
+      #if (!$task.isCompleted())
+        <li><a href="/tasks/$task.getId()">$task.getDescription()</a></li>
+      #end
+    #end
+  </ul>
+  <h3>Competed Tasks:</h3>
+  <ul>
+    #foreach ($task in $tasks)
+      #if ($task.isCompleted())
+        <li><a href="/tasks/$task.getId()">$task.getDescription()</a></li>
+      #end
+    #end
+  </ul>
+#else
+  <p>No tasks!</p>
+#end

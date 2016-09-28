@@ -1,0 +1,13 @@
+body{
+  background-image: url(/images/yusef.jpg);
+}
+.well{
+  color: pink;
+}
+a{
+  color: red;
+}
+a:hover{
+  color: pink;
+  text-decoration: none;
+}

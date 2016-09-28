@@ -1,0 +1,6 @@
+<h1>Adam and Tim's Awesome Recipes</h1>
+<br>
+#foreach ($category in $categories)
+  <a href="/categories/$category.getId()"><h2>$category.getTag()</h2></a>
+#end
+<a href="categories/new">Add A New Category</a>

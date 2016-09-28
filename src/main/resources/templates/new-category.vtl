@@ -1,0 +1,9 @@
+<h1>Add a new category!</h1>
+
+<form action="/categories/new" method="post">
+  <input id="categoryId" name="categoryId" type="hidden" value="$category.getId()">
+  <label for="term">Category:</label>
+  <input id="tag" name="tag" type="text" class="form-control">
+
+  <button type="submit" class="btn btn-danger">Add Category</button>
+</form>

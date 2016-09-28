@@ -1,0 +1,8 @@
+<h1>$category.getTag()</h1>
+
+#foreach ($recipe in $category.getRecipe())
+    <a href="/recipe/$recipe.getId()">$recipe.getName()</a><br /><br />
+#end
+<a href="/recipe/new">add Recipes</a>
+<br>
+<a href="/">Home</a>
