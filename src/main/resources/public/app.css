@@ -1,13 +1,24 @@
 body{
-  background-image: url(/images/yusef.jpg);
+  background-image: url(http://aishwaryaoverseas.com/admin/upload/1469099678indian-spices-933449.jpg);
 }
-.well{
+/*.well{
   color: pink;
+}*/
+
+.underline {
+  text-decoration: underline;
 }
+
 a{
   color: red;
 }
+
 a:hover{
   color: pink;
   text-decoration: none;
+}
+
+.image-resize {
+  height: 60vh;
+  width: auto;
 }
