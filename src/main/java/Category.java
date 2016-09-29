@@ -67,20 +67,21 @@ public class Category {
 
   public List<Recipes> getRecipe() {
     try(Connection con = DB.sql2o.open()){
-      String joinQuery = "SELECT recipes_id FROM recipes_tags WHERE categories_id = :id";
+      String joinQuery = "SELECT recipes_tags.* FROM recipes_tags LEFT JOIN categories ON categories.id = recipes_tags.categories_id WHERE categories_id = :id";
 
-      // String joinQuery = "SELECT recipes.* FROM categories JOIN recipes_tags ON (categories.id = recipes_tags.categories_id) JOIN recipes ON (recipes_tags.recipes_id = recipes.id) WHERE categories.id = :id";
-
-      List<Integer> recipeIds = con.createQuery(joinQuery)
+      System.out.println("before the first con");
+      List<Recipes_Tag> recipes_tags = con.createQuery(joinQuery)
       .addParameter("id", this.getId())
-      .executeAndFetch(Integer.class);
+      .executeAndFetch(Recipes_Tag.class);
+
+      System.out.println("after the first con");
 
       List<Recipes> recipes = new ArrayList<Recipes>();
 
-      for (Integer recipeId : recipeIds) {
+      for (Recipes_Tag recipes_tag : recipes_tags) {
         String recipesQuery = "SELECT * FROM recipes WHERE id = :recipeId";
         Recipes recipe = con.createQuery(recipesQuery)
-        .addParameter("recipeId", recipeId)
+        .addParameter("recipeId", recipes_tag.getRecipe())
         .executeAndFetchFirst(Recipes.class);
         recipes.add(recipe);
       }
