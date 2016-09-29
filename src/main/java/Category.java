@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import org.sql2o.*;
 
-public class Category {
+public class Category implements Getter {
   private String tag;
   private int id;
 

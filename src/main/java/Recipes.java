@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import org.sql2o.*;
 
-public class Recipes {
+public class Recipes implements Getter {
   private String name;
   private String ingredients;
   private String instructions;
