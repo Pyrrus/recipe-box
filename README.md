@@ -1,3 +1,3 @@
 # recipe-box
 
-Make blog for recipes
+Make blog for recipes using java, and spark.
